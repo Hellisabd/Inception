@@ -1,0 +1,9 @@
+version: "2"
+options:
+  verbose: true
+
+syncs:
+  app-sync: # nom de la synchronisation
+    src: './' # répertoire source à synchroniser
+    sync_host_port: 10999 # port utilisé pour la synchronisation rsync
+    sync_strategy: 'native' # méthode de synchronisation
