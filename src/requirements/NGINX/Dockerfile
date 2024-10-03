@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-RUN apt update
+RUN apt update -y
 RUN apt upgrade -y
 RUN apt install nginx -y
 RUN apt install vim -y
@@ -15,6 +15,6 @@ COPY conf/nginx.conf /etc/nginx/nginx.conf
 RUN chmod 755 /var/www/html
 RUN chown -R www-data:www-data /var/www/html
 
-EXPOSE 443
+EXPOSE 8443
 
 CMD [ "nginx", "-g", "daemon off;" ]
