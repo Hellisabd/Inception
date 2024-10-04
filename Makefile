@@ -1,13 +1,22 @@
-all : run_script_nginx run_script_mariadb run_script_wp
+all : network run_script_wp run_script_nginx 
+	docker logs nginx
+	docker logs wordpress
 
-nginx : run_script_nginx
+
+nginx : network run_script_nginx
 
 maria : run_script_mariadb
+
+wp : network run_script_wp
+
+network : 
+		docker network create wordpress-network
 
 clean :
 		@docker ps -q | xargs -r docker stop
 		docker container prune -f
 		@docker images -q | xargs -r docker rmi -f
+		@docker network rm wordpress-network || echo
 
 run_script_nginx : ./src/requirements/NGINX/docker.sh
 	chmod +x ./src/requirements/NGINX/docker.sh
