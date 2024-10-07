@@ -1,7 +1,11 @@
-all : network run_script_wp run_script_nginx 
+all : 
+	docker-compose up -d --build
+	docker ps
+	docker logs mariadb
+
+re : clean run_script_wp run_script_nginx 
 	docker logs nginx
 	docker logs wordpress
-
 
 nginx : network run_script_nginx
 

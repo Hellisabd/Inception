@@ -10,7 +10,8 @@ COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 COPY tools/mariadb.sh /etc/mariadb.sh
 
-RUN chmod +x etc/mariadb.sh
-RUN ./etc/mariadb.sh
+RUN mkdir -p /run/mysqld && chown mysql:mysql /run/mysqld
 
-# CMD ["mysqld"]
+RUN chmod +x etc/mariadb.sh
+
+CMD ["sh", "/etc/mariadb.sh"]
