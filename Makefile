@@ -1,7 +1,9 @@
 all : 
-	docker-compose up -d --build
+	docker-compose -f ./src/docker-compose.yml up -d --build
 	docker ps
 	docker logs mariadb
+	docker logs wordpress
+	docker logs nginx
 
 re : clean run_script_wp run_script_nginx 
 	docker logs nginx
@@ -17,10 +19,9 @@ network :
 		docker network create wordpress-network
 
 clean :
-		@docker ps -q | xargs -r docker stop
+		@docker-compose -f ./src/docker-compose.yml down -v
 		docker container prune -f
 		@docker images -q | xargs -r docker rmi -f
-		@docker network rm wordpress-network || echo
 
 run_script_nginx : ./src/requirements/NGINX/docker.sh
 	chmod +x ./src/requirements/NGINX/docker.sh

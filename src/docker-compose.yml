@@ -1,0 +1,61 @@
+version: '3.8'
+
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./requirements/WordPress/data
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./requirements/Mariadb/data
+
+services:
+  mariadb:
+    build:
+      context: ./requirements/Mariadb
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+     - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    image: mariadb
+    container_name: mariadb 
+
+
+  nginx:
+    build: ./requirements/NGINX
+    #dockerfile: Dockerfile
+    ports:
+      - "8443:8443"
+    volumes:
+      - wordpress_data:/var/www/wordpress
+    depends_on:
+      - wordpress
+    image: nginx
+    container_name: nginx
+
+  wordpress:
+    build: 
+      context: ./requirements/WordPress
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+     - MYSQL_ROOT_PASSWORD=${SQL_ROOT_PASSWORD}
+     - MYSQL_DATABASE=${SQL_DATABASE}
+     - MYSQL_USER=${SQL_USER}
+     - MYSQL_PASSWORD=${SQL_PASSWORD}
+    volumes:
+      - wordpress_data:/var/www/wordpress
+    depends_on:
+      - mariadb
+    image: wordpress
+    container_name: wordpress
+    restart: always
