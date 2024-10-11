@@ -1,4 +1,7 @@
 all : 
+	mkdir -p /home/bgrosjea/data/wordpress
+	mkdir -p /home/bgrosjea/data/mariadb
+	echo >> /etc/hosts "127.0.0.1       bgrosjea.42.fr"
 	docker-compose -f ./src/docker-compose.yml up -d --build
 	docker ps
 	docker logs mariadb
@@ -19,6 +22,11 @@ network :
 		docker network create wordpress-network
 
 clean :
+		@docker-compose -f ./src/docker-compose.yml down
+		docker container prune -f
+		@docker images -q | xargs -r docker rmi -f
+
+fclean :
 		@docker-compose -f ./src/docker-compose.yml down -v
 		docker container prune -f
 		@docker images -q | xargs -r docker rmi -f

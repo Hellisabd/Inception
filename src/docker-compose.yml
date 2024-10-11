@@ -1,18 +1,22 @@
 version: '3.8'
 
+networks:
+ inception:
+   name: inception
+
 volumes:
   wordpress_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./requirements/WordPress/data
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   o: bind
+    #   device: /home/bgrosjea/data/wordpress
   mariadb_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./requirements/Mariadb/data
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   o: bind
+    #   device: /home/bgrosjea/data/mariadb
 
 services:
   mariadb:
@@ -23,6 +27,8 @@ services:
       - .env
     ports:
      - "3306:3306"
+    networks:
+      - inception
     volumes:
       - mariadb_data:/var/lib/mysql
     image: mariadb
@@ -36,6 +42,8 @@ services:
       - "8443:8443"
     volumes:
       - wordpress_data:/var/www/wordpress
+    networks:
+      - inception
     depends_on:
       - wordpress
     image: nginx
@@ -52,8 +60,12 @@ services:
      - MYSQL_DATABASE=${SQL_DATABASE}
      - MYSQL_USER=${SQL_USER}
      - MYSQL_PASSWORD=${SQL_PASSWORD}
+    ports:
+      - 9000:9000
     volumes:
       - wordpress_data:/var/www/wordpress
+    networks:
+      - inception
     depends_on:
       - mariadb
     image: wordpress

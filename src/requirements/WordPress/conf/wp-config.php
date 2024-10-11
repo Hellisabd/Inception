@@ -26,9 +26,6 @@ define('DB_NAME', 'maria');
 define('DB_USER', 'bgrosjea');
 define('DB_PASSWORD', 'bgrosjea');
 define('DB_HOST', 'mariadb:3306');
-define('WP_DEBUG', true);
-define('WP_DEBUG_LOG', true);
-define('WP_DEBUG_DISPLAY', true);
 
 /** Jeu de caractères à utiliser par la base de données lors de la création des tables. */
 define( 'DB_CHARSET', 'utf8' );
