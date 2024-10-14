@@ -23,7 +23,7 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-COPY conf/init_wordpress.sql /docker-entrypoint-initdb.d/init_wordpress.sql
+# COPY conf/init_wordpress.sql /docker-entrypoint-initdb.d/init_wordpress.sql
 
 EXPOSE 9000
 #exec sans cli avec script sql

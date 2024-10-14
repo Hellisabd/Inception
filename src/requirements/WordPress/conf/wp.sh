@@ -23,15 +23,15 @@ if ! $(wp core is-installed --allow-root); then
     fi
     # Installer WordPress
     wp core install --url="https://localhost:8443" \
-                    --title="CA marche?" \
-                    --admin_user="bgrosjea" \
-                    --admin_password="bgrosjea" \
-                    --admin_email="email@example.com" \
+                    --title="Webserv is coming" \
+                    --admin_user="antoine" \
+                    --admin_password="antoine" \
+                    --admin_email="antoine@antoine.antoine" \
                     --skip-email \
                     --allow-root
 
     # Configurer des options supplémentaires si besoin
-    wp option update blogdescription "Un site WordPress automatisé" --allow-root
+    wp user create bgrosjea bgrosjea@bgrosjea.bgrosjea --role=author --user_pass=bgrosjea --allow-root
 else
     echo "WordPress est déjà installé."
 fi
