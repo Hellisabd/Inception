@@ -12,6 +12,8 @@ for i in {1..30}; do
     sleep 1
 done
 
+sleep 2
+
 # Vérifier si le serveur est opérationnel après 30 secondes
 if ! mysqladmin ping --silent; then
     echo "Erreur : Le serveur MariaDB n'est pas opérationnel."
@@ -38,7 +40,6 @@ mysql -e "GRANT ALL PRIVILEGES ON ${SQL_DATABASE}.* TO '${SQL_USER}'@'%' IDENTIF
 mysql -e "FLUSH PRIVILEGES;"
 
 # Arrêter le serveur
-# sudo systemctl stop mariadb
 mysqladmin -u root shutdown
 
 
