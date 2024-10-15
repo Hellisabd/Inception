@@ -1,9 +1,0 @@
-     command  docker volume create --opt type=none --opt device="/home/bgrosjea/Desktop/Workspace/Inception/" --opt o=bind --name app-sync
-     success  Docker volume for app-sync created
-     success  Watcher disabled by configuration
-     command  docker volume create --opt type=none --opt device="/home/bgrosjea/Desktop/Workspace/Inception/" --opt o=bind --name app-sync
-     success  Docker volume for app-sync created
-     success  Watcher disabled by configuration
-     command  docker volume create --opt type=none --opt device="/home/bgrosjea/Desktop/Workspace/Inception/" --opt o=bind --name app-sync
-     success  Docker volume for app-sync created
-     success  Watcher disabled by configuration
